@@ -78,9 +78,6 @@
       args:
         chdir: ~vagrant/dist/nassl
 
-    - name: "add sslyze.py to PATH"
-      lineinfile: dest=~/.bashrc line="export PATH=$PATH:~/bin/sslyze.py"
-
     - name: "symlink sslyze.py to bin/sslyze.py"
       file: src=~/dist/sslyze/sslyze.py dest=~/bin/sslyze.py state=link
 
