@@ -41,7 +41,7 @@
 
     # assumes python 2.7.x is installed with base os
     - name: "download python pip"
-      get_url: url=https://raw.github.com/pypa/pip/master/contrib/get-pip.py dest=~/dist/get-pip.py
+      get_url: url=https://bootstrap.pypa.io/get-pip.py dest=~/dist/get-pip.py
 
     - name: "install python pip"
       sudo: yes
@@ -60,24 +60,27 @@
       unarchive: copy=no creates=~/dist/nasl/zlib-1.2.8/README src=~/dist/zlib-1.2.8.tar.gz dest=~/dist/nassl
 
     - name: "get openssl"
-      get_url: url=http://www.openssl.org/source/openssl-1.0.2d.tar.gz dest=~/dist/openssl-1.0.2d.tar.gz
-        sha256sum=671c36487785628a703374c652ad2cebea45fa920ae5681515df25d9f2c9a8c8
+      get_url: url=http://www.openssl.org/source/openssl-1.0.2f.tar.gz dest=~/dist/openssl-1.0.2f.tar.gz
+        sha256sum=932b4ee4def2b434f85435d9e3e19ca8ba99ce9a065a61524b429a9d5e9b2e9c
 
     - name: "extract openssl"
-      unarchive: copy=no creates=~/dist/nasl/openssl-1.0.2d/README src=~/dist/openssl-1.0.2d.tar.gz dest=~/dist/nassl
+      unarchive: copy=no creates=~/dist/nasl/openssl-1.0.2f/README src=~/dist/openssl-1.0.2f.tar.gz dest=~/dist/nassl
+
+    - name: "symlink openssl-1.0.2f to openssl"
+      file: src=~/dist/nassl/openssl-1.0.2f dest=~/dist/nassl/openssl state=link
 
     - name: "build nassl"
-      command: python ~/dist/nassl/buildAll_unix.py
+      command: python ~/dist/nassl/build_from_scratch.py
       args:
         chdir: ~/dist/nassl
-        creates: ~/dist/nassl/build/
+        creates: ~/dist/nassl/bin/
 
     - name: "install nassl python module"
-      command: python ~vagrant/dist/nassl/setup_unix.py install
+      command: python ~vagrant/dist/nassl/setup.py install
       sudo: yes
       args:
         chdir: ~vagrant/dist/nassl
 
-    - name: "symlink sslyze.py to bin/sslyze.py"
-      file: src=~/dist/sslyze/sslyze.py dest=~/bin/sslyze.py state=link
+    - name: "symlink sslyze_cli.py to bin/sslyze_cli.py"
+      file: src=~/dist/sslyze/sslyze_cli.py dest=~/bin/sslyze_cli.py state=link
 
