@@ -60,7 +60,7 @@
       unarchive: copy=no creates=~/dist/nasl/zlib-1.2.8/README src=~/dist/zlib-1.2.8.tar.gz dest=~/dist/nassl
 
     - name: "get openssl"
-      get_url: url=http://www.openssl.org/source/openssl-1.0.2f.tar.gz dest=~/dist/openssl-1.0.2f.tar.gz
+      get_url: url=https://www.openssl.org/source/old/1.0.2/openssl-1.0.2f.tar.gz dest=~/dist/openssl-1.0.2f.tar.gz
         sha256sum=932b4ee4def2b434f85435d9e3e19ca8ba99ce9a065a61524b429a9d5e9b2e9c
 
     - name: "extract openssl"
